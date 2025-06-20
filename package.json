@@ -25,8 +25,8 @@
   "license": "BSD-3-Clause",
   "packageManager": "pnpm@10.8.0",
   "devDependencies": {
-    "@types/node": "^22.14.1",
+    "@types/node": "^22.15.32",
     "prettier": "^3.5.3",
-    "tsx": "^4.19.4"
+    "tsx": "^4.20.3"
   }
 }
