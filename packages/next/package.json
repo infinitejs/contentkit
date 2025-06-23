@@ -1,6 +1,6 @@
 {
   "name": "@ckjs/next",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Next.js client for ContentKit",
   "license": "BSD-3-Clause",
   "main": "./distribution/index.js",
@@ -34,7 +34,7 @@
     "next": "^15.3.1"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.17",
+    "@types/lodash": "^4.17.18",
     "@types/node": "^22.14.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
