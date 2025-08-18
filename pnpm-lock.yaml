@@ -117,8 +117,8 @@ importers:
         specifier: ^14.1.0
         version: 14.1.0
       marked:
-        specifier: ^16.1.2
-        version: 16.1.2
+        specifier: ^16.2.0
+        version: 16.2.0
     devDependencies:
       '@types/marked':
         specifier: ^6.0.0
@@ -1007,8 +1007,8 @@ packages:
     engines: {node: '>= 18'}
     hasBin: true
 
-  marked@16.1.2:
-    resolution: {integrity: sha512-rNQt5EvRinalby7zJZu/mB+BvaAY2oz3wCuCjt1RDrWNpS1Pdf9xqMOeC9Hm5adBdcV/3XZPJpG58eT+WBc0XQ==}
+  marked@16.2.0:
+    resolution: {integrity: sha512-LbbTuye+0dWRz2TS9KJ7wsnD4KAtpj0MVkWc90XvBa6AslXsT0hTBVH5k32pcSyHH1fst9XEFJunXHktVy0zlg==}
     engines: {node: '>= 20'}
     hasBin: true
 
@@ -1693,7 +1693,7 @@ snapshots:
 
   '@types/marked@6.0.0':
     dependencies:
-      marked: 16.1.2
+      marked: 16.2.0
 
   '@types/node@20.17.30':
     dependencies:
@@ -1980,7 +1980,7 @@ snapshots:
 
   marked@15.0.12: {}
 
-  marked@16.1.2: {}
+  marked@16.2.0: {}
 
   merge2@1.4.1: {}
 
