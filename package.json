@@ -27,6 +27,6 @@
   "devDependencies": {
     "@types/node": "^22.15.32",
     "prettier": "^3.6.2",
-    "tsx": "^4.20.3"
+    "tsx": "^4.20.4"
   }
 }
