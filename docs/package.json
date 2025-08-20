@@ -1,0 +1,30 @@
+{
+  "name": "resonix.dev",
+  "version": "1.0.0",
+  "description": "Documentation site for resonix using vitepress",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "format": "prettier --write .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Resonix OSS Team",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/resonix-dev/resonix.dev.git"
+  },
+  "homepage": "https://resonix.dev",
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "prettier": "^3.6.2",
+    "vitepress": "2.0.0-alpha.11"
+  },
+  "dependencies": {
+    "vitepress-plugin-group-icons": "^1.6.3",
+    "vue": "^3.5.0"
+  }
+}
