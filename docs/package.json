@@ -1,7 +1,7 @@
 {
-  "name": "resonix.dev",
-  "version": "1.0.0",
-  "description": "Documentation site for resonix using vitepress",
+  "name": "contentkit.js.org",
+  "version": "0.1.0",
+  "description": "Documentation site for ContentKit (Markdown -> typed JSON SDK) built with VitePress",
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
@@ -10,13 +10,17 @@
     "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Resonix OSS Team",
+  "author": "ContentKit Contributors",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/resonix-dev/resonix.dev.git"
+    "url": "git+https://github.com/infinitejs/contentkit.git",
+    "directory": "docs"
   },
-  "homepage": "https://resonix.dev",
+  "bugs": {
+    "url": "https://github.com/infinitejs/contentkit/issues"
+  },
+  "homepage": "https://contentkit.js.org",
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
     "@types/node": "^24.3.0",
