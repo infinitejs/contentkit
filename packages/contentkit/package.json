@@ -25,7 +25,7 @@
     "type": "git",
     "url": "git+https://github.com/infinitejs/contentkit.git"
   },
-  "homepage": "https://github.com/infinitejs/contentkit#readme",
+  "homepage": "https://contentkit.js.org",
   "bugs": {
     "url": "https://github.com/infinitejs/contentkit/issues"
   },
