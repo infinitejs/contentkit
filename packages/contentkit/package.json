@@ -42,7 +42,7 @@
     "@ckjs/next": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^22.14.1",
+    "@types/node": "^24.3.0",
     "typescript": "^5.8.3"
   },
   "exports": {
