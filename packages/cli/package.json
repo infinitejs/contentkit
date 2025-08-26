@@ -1,6 +1,6 @@
 {
   "name": "@ckjs/cli",
-  "version": "0.1.4",
+  "version": "0.1.8",
   "description": "Command line interface for ContentKit",
   "publishConfig": {
     "access": "public"
@@ -35,7 +35,7 @@
     "commander": "^14.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.14.1",
+    "@types/node": "^24.3.0",
     "typescript": "^5.8.3"
   }
 }
