@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/marked": "^6.0.0",
     "@types/node": "^24.3.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "@ckjs/types": "workspace:*",
