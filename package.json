@@ -1,6 +1,6 @@
 {
   "name": "contentkit-monorepo",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "type": "module",
   "description": "The monorepo for the ContentKit SDK",
   "workspaces": [
@@ -25,7 +25,7 @@
   "license": "BSD-3-Clause",
   "packageManager": "pnpm@10.8.0",
   "devDependencies": {
-    "@types/node": "^24.3.0",
+    "@types/node": "^24.4.0",
     "prettier": "^3.6.2",
     "tsx": "^4.20.5"
   }
