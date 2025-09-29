@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/marked": "^6.0.0",
-    "@types/node": "^24.4.0",
+    "@types/node": "^24.5.2",
     "typescript": "^5.9.2"
   },
   "dependencies": {
