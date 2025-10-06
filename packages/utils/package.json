@@ -18,7 +18,7 @@
     "url": "https://github.com/infinitejs/contentkit/issues"
   },
   "devDependencies": {
-    "@types/node": "^24.4.0"
+    "@types/node": "^24.7.0"
   },
   "files": [
     "assets",
@@ -35,6 +35,6 @@
   },
   "dependencies": {
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   }
 }
