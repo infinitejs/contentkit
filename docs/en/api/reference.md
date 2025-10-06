@@ -106,12 +106,12 @@ export default defineConfig({
 
 ### `ContentKitConfig`
 
-| Property         | Type                       | Required | Description                                              |
+| Property         | Type                       | Required | Description                                              | Note                                    |
 | ---------------- | -------------------------- | -------- | -------------------------------------------------------- | --------------------------------------- |
-| `contentDirPath` | `string`                   | yes      | Root folder containing your content files.               |
-| `outputFormat`   | `'cjs'                     | 'esm'`   | yes                                                      | Module system for generated `index.js`. |
-| `generateTypes`  | `boolean`                  | no       | Disable to skip emitting `d.ts` files. Defaults to true. |
-| `documentTypes`  | `DocumentTypeDefinition[]` | yes      | Array of document type schemas.                          |
+| `contentDirPath` | `string`                   | yes      | Root folder containing your content files.               |                                         |
+| `outputFormat`   | `'cjs'`                    | `'esm'`  | yes                                                      | Module system for generated `index.js`. |
+| `generateTypes`  | `boolean`                  | no       | Disable to skip emitting `d.ts` files. Defaults to true. |                                         |
+| `documentTypes`  | `DocumentTypeDefinition[]` | yes      | Array of document type schemas.                          |                                         |
 
 ### `DocumentTypeDefinition`
 
