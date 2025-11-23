@@ -1,6 +1,6 @@
 {
   "name": "@ckjs/core",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Core library for ContentKit",
   "publishConfig": {
     "access": "public"
@@ -38,6 +38,8 @@
   "license": "BSD-3-Clause",
   "exports": {
     "./build": "./distribution/build.js",
-    "./build.d.ts": "./distribution/build.d.ts"
+    "./build.d.ts": "./distribution/build.d.ts",
+    "./utils/normalizeConfig": "./distribution/utils/normalizeConfig.js",
+    "./utils/normalizeConfig.d.ts": "./distribution/utils/normalizeConfig.d.ts"
   }
 }

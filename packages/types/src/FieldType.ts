@@ -11,7 +11,12 @@ export type FieldType =
       required?: boolean;
     }
   | {
+      type: "object";
+      required?: boolean;
+      fields: Record<string, FieldType>;
+    }
+  | {
       type: "array" | "list";
       required?: boolean;
-      items: ItemType;
+      items: FieldType;
     };

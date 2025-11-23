@@ -44,110 +44,101 @@ npx contentkit validate
 
 ## Konfiguration
 
-Definiere dein Schema via `contentkit.config.ts` mit `defineConfig` (re-export aus dem Root Package) oder exportiere ein plain object.
+Definiere dein Schema via `contentkit.config.ts` mit `defineConfig` und `defineCollection`.
 
 ::: code-group
 
 ```ts [contentkit.config.ts]
-import { defineConfig } from "contentkit";
+import { defineConfig, defineCollection, fields } from "contentkit";
+
+const posts = defineCollection({
+  name: "Post",
+  directory: "./content/posts",
+  include: "**/*.md",
+  schema: {
+    title: fields.string(),
+    date: fields.date(),
+    tags: fields.array(fields.string()).optional(),
+  },
+  computedFields: {
+    slug: fields
+      .string()
+      .resolve((doc) => doc.title.toLowerCase().replace(/\s+/g, "-")),
+  },
+});
 
 export default defineConfig({
-  contentDirPath: "content",
-  outputFormat: "esm", // 'esm' | 'cjs'
-  generateTypes: true, // default true
-  documentTypes: [
-    {
-      name: "Post",
-      filePathPattern: "posts/**/*.md",
-      fields: {
-        title: { type: "string", required: true },
-        date: { type: "date", required: true },
-        tags: { type: "array", items: { type: "string" } },
-      },
-      computedFields: {
-        slug: {
-          type: "string",
-          resolve: (d) => d.title.toLowerCase().replace(/\s+/g, "-"),
-        },
-      },
-    },
-  ],
+  collections: [posts],
 });
 ```
 
 ```js [contentkit.config.js]
-import { defineConfig } from "contentkit";
+import { defineConfig, defineCollection, fields } from "contentkit";
+
+const posts = defineCollection({
+  name: "Post",
+  directory: "./content/posts",
+  include: "**/*.md",
+  schema: {
+    title: fields.string(),
+    date: fields.date(),
+    tags: fields.array(fields.string()).optional(),
+  },
+  computedFields: {
+    slug: fields
+      .string()
+      .resolve((doc) => doc.title.toLowerCase().replace(/\s+/g, "-")),
+  },
+});
 
 export default defineConfig({
-  contentDirPath: "content",
-  outputFormat: "esm",
-  generateTypes: false,
-  documentTypes: [
-    {
-      name: "Post",
-      filePathPattern: "posts/**/*.md",
-      fields: {
-        title: { type: "string", required: true },
-        date: { type: "date", required: true },
-        tags: { type: "array", items: { type: "string" } },
-      },
-      computedFields: {
-        slug: {
-          type: "string",
-          resolve: (d) => d.title.toLowerCase().replace(/\s+/g, "-"),
-        },
-      },
-    },
-  ],
+  collections: [posts],
 });
 ```
 
 :::
 
-### `ContentKitConfig`
+### `defineConfig` Optionen
 
-| Property         | Typ                        | Erforderlich | Beschreibung                                                    | Notiz                                    |
-| ---------------- | -------------------------- | ------------ | --------------------------------------------------------------- | ---------------------------------------- |
-| `contentDirPath` | `string`                   | ja           | Root-Ordner mit deinen Content-Dateien.                         |                                          |
-| `outputFormat`   | `'cjs'                     | 'esm'`       | ja                                                              | Modul-System für generiertes `index.js`. |
-| `generateTypes`  | `boolean`                  | nein         | Deaktivieren um `d.ts` Emission zu überspringen. Standard true. |                                          |
-| `documentTypes`  | `DocumentTypeDefinition[]` | ja           | Array der Dokumenttyp-Schemata.                                 |                                          |
+| Property      | Typ                      | Erforderlich | Beschreibung                       |
+| ------------- | ------------------------ | ------------ | ---------------------------------- |
+| `collections` | `CollectionDefinition[]` | ja           | Array von Collection Definitionen. |
 
-### `DocumentTypeDefinition`
+### `defineCollection` Optionen
 
-| Property          | Typ                             | Erforderlich | Beschreibung                                       |
-| ----------------- | ------------------------------- | ------------ | -------------------------------------------------- |
-| `name`            | `string`                        | ja           | PascalCase Typname für generierte Typen & Exports. |
-| `filePathPattern` | `string`                        | ja           | Glob relativ zu `contentDirPath` für Dokumente.    |
-| `fields`          | `Record<string, FieldType>`     | ja           | Frontmatter-Schema für Rohfelder.                  |
-| `computedFields`  | `Record<string, ComputedField>` | nein         | Abgeleitete Felder beim Build aufgelöst.           |
+| Property         | Typ                             | Erforderlich | Beschreibung                                       |
+| ---------------- | ------------------------------- | ------------ | -------------------------------------------------- |
+| `name`           | `string`                        | ja           | PascalCase Typname für generierte Typen & Exports. |
+| `directory`      | `string`                        | ja           | Basisverzeichnis für den Content der Collection.   |
+| `include`        | `string`                        | ja           | Glob Pattern relativ zu `directory` für Dokumente. |
+| `schema`         | `Record<string, FieldSchema>`   | ja           | Frontmatter Schema Definition.                     |
+| `computedFields` | `Record<string, ComputedField>` | nein         | Abgeleitete Felder beim Build aufgelöst.           |
 
-### `FieldType`
+### `fields` Helper
 
-Union für primitive oder Listen / Array Felder.
+Verwende den `fields` Helper um dein Schema zu definieren.
 
-Primitive:
+- `fields.string()`
+- `fields.number()`
+- `fields.boolean()`
+- `fields.date()`
+- `fields.array(items)`
+- `fields.list(items)`
+- `fields.object(fields)`
 
-```ts
-{ type: 'string' | 'number' | 'boolean' | 'date'; required?: boolean }
-```
-
-Collections:
-
-```ts
-{ type: 'array' | 'list'; items: { type: 'string' | 'number' | 'boolean' | 'date' | 'array' | 'list' }; required?: boolean }
-```
+Verkette `.optional()` um ein Feld optional zu machen.
 
 ### `ComputedField`
 
+Definiert durch Verketten von `.resolve((doc) => ...)` an einer Feld-Definition.
+
 ```ts
-{
-  type: "string" | "number" | "boolean" | "date" | "array" | "list";
-  resolve: (data: any) => any;
-}
+slug: fields
+  .string()
+  .resolve((doc) => doc.title.toLowerCase().replace(/\s+/g, "-"));
 ```
 
-`data` enthält gemergtes Frontmatter plus: `raw` (Markdown Body), `html` (gerenderte HTML).
+`doc` enthält gemergtes Frontmatter plus: `_raw` (Metadaten), `raw` (Markdown Body), `html` (gerenderte HTML).
 
 ---
 

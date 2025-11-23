@@ -3,7 +3,32 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import type { ContentKitConfig } from "@ckjs/types";
+import type { ContentKitConfig, FieldType } from "@ckjs/types";
+
+function getFieldTypeString(fieldType: FieldType): string {
+  if (fieldType.type === "date") {
+    return "Date";
+  } else if (fieldType.type === "array" || fieldType.type === "list") {
+    const itemType = fieldType.items
+      ? getFieldTypeString(fieldType.items)
+      : "any";
+    return `${itemType}[]`;
+  } else if (fieldType.type === "object") {
+    if (fieldType.fields) {
+      const fields = Object.entries(fieldType.fields)
+        .map(([key, ft]) => {
+          const type = getFieldTypeString(ft);
+          const optional = ft.required ? "" : " | undefined";
+          return `${key}: ${type}${optional}`;
+        })
+        .join("; ");
+      return `{ ${fields} }`;
+    }
+    return "Record<string, any>";
+  } else {
+    return fieldType.type;
+  }
+}
 
 export function generateTypeScriptTypesFile(
   config: ContentKitConfig,
@@ -16,18 +41,7 @@ export function generateTypeScriptTypesFile(
           docType.fields,
         )
           .map(([fieldName, fieldType]) => {
-            let type;
-            if (fieldType.type === "date") {
-              type = "Date";
-            } else if (
-              fieldType.type === "array" ||
-              fieldType.type === "list"
-            ) {
-              const itemType = fieldType.items?.type || "any";
-              type = `${itemType}[]`;
-            } else {
-              type = fieldType.type;
-            }
+            const type = getFieldTypeString(fieldType);
             const optional = fieldType.required ? "" : " | undefined";
             return `${fieldName}: ${type}${optional};`;
           })

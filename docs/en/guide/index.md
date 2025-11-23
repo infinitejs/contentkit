@@ -24,6 +24,8 @@ Jump into the detailed guides below for deeper explanations and options.
 - [Configuration](./configuration.md) – Define document types, fields & computed fields.
 - [CLI](./cli.md) – Commands (`init`, `validate`, `build`) and scripting tips.
 - [Build Output](./output.md) – Folder layout, imports & types.
+- [Common Errors](./errors.md) – Troubleshooting and resolving common issues.
+- [Upgrade Guide v1.0](../migration-guides/1.0.md) – Migrating from v0.x to v1.0.
 
 ## Concepts At a Glance
 

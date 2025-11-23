@@ -3,19 +3,18 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import type { ItemType } from "@ckjs/types";
+import type { FieldType } from "@ckjs/types";
 
-export function validateFieldType(
-  value: any,
-  expectedType: string,
-  items?: ItemType,
-  required: boolean = false,
-): boolean {
-  if (!required && value === undefined) {
+export function validateFieldType(value: any, fieldType: FieldType): boolean {
+  if (!fieldType.required && value === undefined) {
     return true;
   }
 
-  switch (expectedType) {
+  if (fieldType.required && value === undefined) {
+    return false;
+  }
+
+  switch (fieldType.type) {
     case "string":
       return typeof value === "string";
     case "number":
@@ -24,11 +23,22 @@ export function validateFieldType(
       return typeof value === "boolean";
     case "date":
       return value instanceof Date || !isNaN(Date.parse(value));
+    case "object":
+      if (typeof value !== "object" || value === null || Array.isArray(value))
+        return false;
+      if (fieldType.fields) {
+        for (const [key, childFieldType] of Object.entries(fieldType.fields)) {
+          if (!validateFieldType(value[key], childFieldType)) {
+            return false;
+          }
+        }
+      }
+      return true;
     case "array":
     case "list":
       if (!Array.isArray(value)) return false;
-      if (items) {
-        return value.every((item) => validateFieldType(item, items.type));
+      if (fieldType.items) {
+        return value.every((item) => validateFieldType(item, fieldType.items));
       }
       return true;
     default:

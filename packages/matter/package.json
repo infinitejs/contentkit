@@ -1,6 +1,6 @@
 {
   "name": "@ckjs/matter",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Frontmatter parser for ContentKit",
   "publishConfig": {
     "access": "public"

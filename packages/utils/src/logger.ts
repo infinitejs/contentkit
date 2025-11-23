@@ -29,13 +29,13 @@ export const knownErrors: Record<string, KnownError> = {
     id: "CONFIG_NOT_FOUND",
     code: "E001",
     message: "No contentkit config file found.",
-    docsUrl: "https://contentkit.dev/docs/errors#E001",
+    docsUrl: "https://contentkit.js.org/guide/errors#E001",
   },
   INVALID_FRONTMATTER_FORMAT: {
     id: "INVALID_FRONTMATTER_FORMAT",
     code: "E002",
     message: "Invalid frontmatter format.",
-    docsUrl: "https://contentkit.dev/docs/errors#E002",
+    docsUrl: "https://contentkit.js.org/guide/errors#E002",
   },
   INVALID_FRONTMATTER_FORMAT_NO_DELIMITER: {
     id: "INVALID_FRONTMATTER_FORMAT_NO_DELIMITER",
@@ -46,7 +46,7 @@ export const knownErrors: Record<string, KnownError> = {
       "---\n" +
       "key: value\n" +
       "---",
-    docsUrl: "https://contentkit.dev/docs/errors#E003",
+    docsUrl: "https://contentkit.js.org/guide/errors#E003",
   },
 };
 

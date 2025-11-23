@@ -2,9 +2,6 @@
 
 ContentKit is a powerful SDK for converting Markdown (or MDX) content into structured JSON data. It provides a complete solution for managing content in TypeScript projects, including type-safe configurations, a build system, and a CLI.
 
-> [!CAUTION]
-> **This project is under construction** and is not fully tested and expected to be entirely working yet. Please use with caution however we do not recommend using this in production yet.
-
 ## Features
 
 - **Type-safe configurations**: Define your content structure with TypeScript types.
@@ -46,7 +43,7 @@ bun add contentkit
 
 ## Getting Started
 
-Visit the [ContentKit documentation](https://contentkit.dev/docs/getting-started) for more information on how to get started with ContentKit.
+Visit the [ContentKit documentation](https://contentkit.js.org/guide/installation) for more information on how to get started with ContentKit.
 
 ## License
 

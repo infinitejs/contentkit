@@ -5,6 +5,7 @@
 
 import chokidar from "chokidar";
 import { build } from "@ckjs/core/build";
+import { normalizeConfig } from "@ckjs/core/utils/normalizeConfig";
 import { loadConfig } from "@ckjs/utils/load-config";
 import { logger, colors } from "@ckjs/utils/logger";
 import { type NextConfig } from "next";
@@ -21,7 +22,16 @@ export function withContentkit(nextConfig: NextConfig) {
     isWithContentkitInitialized = true;
 
     (async () => {
-      const contentkitConfig = await loadConfig();
+      const rawConfig = await loadConfig();
+
+      if (!rawConfig.collections) {
+        logger.warn(
+          "You are using a legacy configuration. Please upgrade to the new configuration format before v1.5.0.\nSee https://contentkit.js.org/docs/migration-guides/1.0 for more information.",
+          "next",
+        );
+      }
+
+      const contentkitConfig = normalizeConfig(rawConfig);
       const contentDir = path.join(
         process.cwd(),
         contentkitConfig.contentDirPath,

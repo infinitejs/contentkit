@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) Jonas Franke and the ContentKit Contributors
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 import { Command } from "commander";
 import { logger } from "@ckjs/utils/logger";
 import fs from "node:fs";

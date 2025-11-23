@@ -23,7 +23,7 @@ bun add contentkit
 
 ## Getting Started
 
-Visit the [ContentKit documentation](https://contentkit.dev/docs/getting-started) for more information on how to get started with ContentKit.
+Visit the [ContentKit documentation](https://contentkit.js.org/guide/installation) for more information on how to get started with ContentKit.
 
 ## License
 

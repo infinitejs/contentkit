@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) Jonas Franke and the ContentKit Contributors
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 import {
   defineConfig,
   resolveSiteDataByRoute,
@@ -88,6 +93,7 @@ export default async function () {
           nav: [
             { text: "Guide", link: "/guide/", activeMatch: "/guide/" },
             { text: "API", link: "/api/reference", activeMatch: "/api/" },
+            { text: "Upgrade Guide", link: "/migration-guides/1.0" },
             {
               text: `v${latest_version}`,
               items: [
@@ -116,6 +122,12 @@ export default async function () {
                 items: [{ text: "Reference", link: "/api/reference" }],
               },
             ],
+            "/migration-guides/": [
+              {
+                text: "Migration Guides",
+                items: [{ text: "1.0", link: "/migration-guides/1.0" }],
+              },
+            ],
           },
         },
       },
@@ -132,6 +144,20 @@ export default async function () {
               activeMatch: "/de/guide/",
             },
             { text: "API", link: "/de/api/reference", activeMatch: "/de/api/" },
+            { text: "Upgrade Guide", link: "/de/migration-guides/1.0" },
+            {
+              text: `v${latest_version}`,
+              items: [
+                {
+                  text: "Sicherheit",
+                  link: "https://github.com/infinitejs/contentkit/blob/master/SECURITY.md",
+                },
+                {
+                  text: "Beitragsleitfaden",
+                  link: "https://github.com/infinitejs/contentkit/blob/master/CONTRIBUTING.md",
+                },
+              ],
+            },
           ],
           sidebar: {
             "/de/guide/": [
@@ -145,6 +171,12 @@ export default async function () {
               {
                 text: "API",
                 items: [{ text: "Referenz", link: "/de/api/reference" }],
+              },
+            ],
+            "/de/migration-guides/": [
+              {
+                text: "Migrationsanleitungen",
+                items: [{ text: "1.0", link: "/de/migration-guides/1.0" }],
               },
             ],
           },

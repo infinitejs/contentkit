@@ -4,6 +4,6 @@
  */
 
 export type ComputedField = {
-  type: "string" | "number" | "boolean" | "date" | "array" | "list";
+  type: "string" | "number" | "boolean" | "date" | "array" | "list" | "object";
   resolve: (data: any) => any;
 };

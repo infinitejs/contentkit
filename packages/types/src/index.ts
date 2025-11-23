@@ -8,3 +8,4 @@ export { DocumentTypeDefinition } from "./DocumentTypeDefinition";
 export { FieldType } from "./FieldType";
 export { ItemType } from "./ItemType";
 export { ParsedContent } from "./ParsedContent";
+export { ComputedField } from "./ComputedField";

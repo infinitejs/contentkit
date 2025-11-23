@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) Jonas Franke and the ContentKit Contributors
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 export function formatTime(ms: number): string {
   const miliseconds = ms % 1000;
   const seconds = Math.floor(ms / 1000);

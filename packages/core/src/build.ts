@@ -4,11 +4,9 @@
  */
 
 import fs from "node:fs/promises";
-import fsSync from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { marked } from "marked";
-import { loadConfig } from "@ckjs/utils/load-config";
 import { logger, colors } from "@ckjs/utils/logger";
 import { parseInternal as parseFrontmatter } from "@ckjs/matter";
 import type { ContentKitConfig, ParsedContent } from "@ckjs/types";
@@ -82,20 +80,7 @@ export async function build(config: ContentKitConfig) {
               docType.fields,
             )) {
               const value = data[fieldName];
-              const isValid =
-                fieldType.type === "array" || fieldType.type === "list"
-                  ? validateFieldType(
-                      value,
-                      fieldType.type,
-                      fieldType.items,
-                      fieldType.required,
-                    )
-                  : validateFieldType(
-                      value,
-                      fieldType.type,
-                      undefined,
-                      fieldType.required,
-                    );
+              const isValid = validateFieldType(value, fieldType);
 
               if (!isValid) {
                 const relativeFilePath = path.relative(process.cwd(), file);
@@ -110,16 +95,32 @@ export async function build(config: ContentKitConfig) {
 
           const html = await marked(body);
 
+          const relativePath = path.relative(process.cwd(), file);
+          const _raw = {
+            sourceFilePath: relativePath,
+            sourceFileName: path.basename(relativePath),
+            sourceFileDir: path.dirname(relativePath),
+            contentType: "markdown",
+            flattenedPath: relativePath.replace(/\.[^.]+$/, ""),
+          };
+
           const computedFields = docType.computedFields || {};
           const computedData: Record<string, any> = {};
           for (const [fieldName, { resolve }] of Object.entries(
             computedFields,
           )) {
-            computedData[fieldName] = resolve({ ...data, raw: body, html });
+            computedData[fieldName] = resolve({
+              ...data,
+              _raw,
+              raw: body,
+              html,
+            });
           }
 
           return {
             typeName: docType.name,
+            _id: relativePath,
+            _raw,
             ...data,
             ...computedData,
             raw: body,

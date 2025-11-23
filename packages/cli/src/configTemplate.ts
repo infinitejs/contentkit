@@ -1,82 +1,76 @@
+/**
+ * Copyright (c) Jonas Franke and the ContentKit Contributors
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 const configTemplate = {
-  ts: `import type { ContentKitConfig } from "contentkit/types";
+  ts: `import { defineConfig, defineCollection, fields } from "contentkit";
 
-const config: ContentKitConfig = {
-contentDirPath: "content",
-outputFormat: "esm",
-generateTypes: true,
-documentTypes: [
-  {
-    name: "Post",
-    filePathPattern: "./*.md",
-    fields: {
-      title: { type: "string", required: true },
-      date: { type: "date", required: true },
-      tags: { type: "list", required: true, items: { type: "string" } },
-    },
+const post = defineCollection({
+  name: "Post",
+  directory: "./content",
+  include: "*.md",
+  schema: {
+    title: fields.string(),
+    date: fields.date(),
+    tags: fields.list(fields.string()),
   },
-],
-};
+});
 
-export default config;
+export default defineConfig({
+  collections: [post],
+});
 `,
-  js: `/** @type {import("contentkit/types").ContentKitConfig} */
-const config = {
-contentDirPath: "content",
-outputFormat: "esm",
-generateTypes: true,
-documentTypes: [
-  {
-    name: "Post",
-    filePathPattern: "./*.md",
-    fields: {
-      title: { type: "string", required: true },
-      date: { type: "date", required: true },
-      tags: { type: "list", required: true, items: { type: "string" } },
-    },
-  },
-],
-};
+  js: `import { defineConfig, defineCollection, fields } from "contentkit";
 
-export default config;
-`,
-  mjs: `/** @type {import("contentkit/types").ContentKitConfig} */
-export const config = {
-contentDirPath: "content",
-outputFormat: "esm",
-generateTypes: true,
-documentTypes: [
-  {
-    name: "Post",
-    filePathPattern: "./*.md",
-    fields: {
-      title: { type: "string", required: true },
-      date: { type: "date", required: true },
-      tags: { type: "list", required: true, items: { type: "string" } },
-    },
+const post = defineCollection({
+  name: "Post",
+  directory: "./content",
+  include: "*.md",
+  schema: {
+    title: fields.string(),
+    date: fields.date(),
+    tags: fields.list(fields.string()),
   },
-],
-};
-`,
-  cjs: `/** @type {import("contentkit/types").ContentKitConfig} */
-const config = {
-contentDirPath: "content",
-outputFormat: "esm",
-generateTypes: true,
-documentTypes: [
-  {
-    name: "Post",
-    filePathPattern: "./*.md",
-    fields: {
-      title: { type: "string", required: true },
-      date: { type: "date", required: true },
-      tags: { type: "list", required: true, items: { type: "string" } },
-    },
-  },
-],
-};
+});
 
-module.exports = config;
+export default defineConfig({
+  collections: [post],
+});
+`,
+  mjs: `import { defineConfig, defineCollection, fields } from "contentkit";
+
+const post = defineCollection({
+  name: "Post",
+  directory: "./content",
+  include: "*.md",
+  schema: {
+    title: fields.string(),
+    date: fields.date(),
+    tags: fields.list(fields.string()),
+  },
+});
+
+export default defineConfig({
+  collections: [post],
+});
+`,
+  cjs: `const { defineConfig, defineCollection, fields } = require("contentkit");
+
+const post = defineCollection({
+  name: "Post",
+  directory: "./content",
+  include: "*.md",
+  schema: {
+    title: fields.string(),
+    date: fields.date(),
+    tags: fields.list(fields.string()),
+  },
+});
+
+module.exports = defineConfig({
+  collections: [post],
+});
 `,
 };
 

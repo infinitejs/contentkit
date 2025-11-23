@@ -4,7 +4,7 @@ outline: deep
 
 # Konfiguration
 
-Definiere dein Schema in `contentkit.config.ts` mit `defineConfig`.
+Definiere dein Schema in `contentkit.config.ts` mit `defineConfig` und `defineCollection`.
 
 ## Minimales Beispiel
 
@@ -12,74 +12,111 @@ Definiere dein Schema in `contentkit.config.ts` mit `defineConfig`.
 
 ```ts [TypeScript]
 // contentkit.config.ts
-import { defineConfig } from "contentkit";
+import { defineConfig, defineCollection, fields } from "contentkit";
+
+const posts = defineCollection({
+  name: "posts",
+  directory: "./content/posts",
+  include: "**/*.md",
+  schema: {
+    title: fields.string(),
+    date: fields.date(),
+  },
+});
 
 export default defineConfig({
-  contentDirPath: "content",
-  outputFormat: "esm",
-  documentTypes: [],
+  collections: [posts],
 });
 ```
 
 ```js [JavaScript]
 // contentkit.config.js
-import { defineConfig } from "contentkit";
+import { defineConfig, defineCollection, fields } from "contentkit";
+
+const posts = defineCollection({
+  name: "posts",
+  directory: "./content/posts",
+  include: "**/*.md",
+  schema: {
+    title: fields.string(),
+    date: fields.date(),
+  },
+});
 
 export default defineConfig({
-  contentDirPath: "content",
-  outputFormat: "esm",
-  documentTypes: [],
+  collections: [posts],
 });
 ```
 
 :::
 
-## Document Type
+## Collection Definition
 
 ::: code-group
 
 ```ts [TypeScript]
 // inside contentkit.config.ts
-{
-  name: 'Post',
-  filePathPattern: 'posts/**/*.md',
-  fields: {
-    title: { type: 'string', required: true },
-    date: { type: 'date', required: true },
-    tags: { type: 'array', items: { type: 'string' } }
+const posts = defineCollection({
+  name: "posts",
+  directory: "./content/posts",
+  include: "**/*.md",
+  schema: {
+    title: fields.string(),
+    date: fields.date(),
+    tags: fields.array(fields.string()),
   },
   computedFields: {
-    slug: { type: 'string', resolve: (doc) => doc.title.toLowerCase().replace(/\s+/g, '-') }
-  }
-}
+    slug: fields
+      .string()
+      .resolve((doc) => doc.title.toLowerCase().replace(/\s+/g, "-")),
+  },
+});
 ```
 
 ```js [JavaScript]
 // inside contentkit.config.js
-{
-  name: 'Post',
-  filePathPattern: 'posts/**/*.md',
-  fields: {
-    title: { type: 'string', required: true },
-    date: { type: 'date', required: true },
-    tags: { type: 'array', items: { type: 'string' } }
+const posts = defineCollection({
+  name: "posts",
+  directory: "./content/posts",
+  include: "**/*.md",
+  schema: {
+    title: fields.string(),
+    date: fields.date(),
+    tags: fields.array(fields.string()),
   },
   computedFields: {
-    slug: { type: 'string', resolve: (doc) => doc.title.toLowerCase().replace(/\s+/g, '-') }
-  }
-}
+    slug: fields
+      .string()
+      .resolve((doc) => doc.title.toLowerCase().replace(/\s+/g, "-")),
+  },
+});
 ```
 
 :::
 
 ## Feld-Definition
 
-Primitive Typen: `string | number | boolean | date`
+Verwende den `fields` Helper um dein Schema zu definieren.
 
-Optionen:
+- `fields.string()`
+- `fields.number()`
+- `fields.boolean()`
+- `fields.date()`
+- `fields.array(items)`
+- `fields.object(fields)`
+- `fields.list(items)` (Alias für array)
 
-- `required: true` markiert Pflichtfelder
-- `list: true` Array dieses Primitivs
+Verkette `.optional()` um ein Feld optional zu machen.
+
+```ts
+schema: {
+  tags: fields.array(fields.string()).optional(),
+  author: fields.object({
+    name: fields.string(),
+    email: fields.string(),
+  }),
+}
+```
 
 ## Computed Fields
 
@@ -87,11 +124,15 @@ Für abgeleitete Werte wie `slug`, `readingTime`, etc.
 ::: code-group
 
 ```ts [TypeScript]
-readingTime: { type: 'number', resolve: d => Math.ceil(d.raw.split(/\s+/).length / 200) }
+readingTime: fields
+  .number()
+  .resolve((d) => Math.ceil(d.raw.split(/\s+/).length / 200));
 ```
 
 ```js [JavaScript]
-readingTime: { type: 'number', resolve: (d) => Math.ceil(d.raw.split(/\s+/).length / 200) }
+readingTime: fields
+  .number()
+  .resolve((d) => Math.ceil(d.raw.split(/\s+/).length / 200));
 ```
 
 :::
