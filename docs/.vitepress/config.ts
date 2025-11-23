@@ -66,6 +66,16 @@ export default async function () {
          document.documentElement.classList.add('dark');
        }catch(e){}`,
       ],
+      [
+        "script",
+        {},
+        `try {
+          var path = window.location.pathname;
+          if (path.match(/^(\\/de)?\\/docs\\//)) {
+            window.location.replace(path.replace(/^(\\/de)?\\/docs\\//, '$1/'));
+          }
+        } catch(e) {}`,
+      ],
     ],
     themeConfig: {
       logo: "/logo.png",
