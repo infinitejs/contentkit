@@ -11,7 +11,6 @@ import { logger, colors } from "@ckjs/utils/logger";
 import { type NextConfig } from "next";
 import path from "node:path";
 import { debounce } from "lodash";
-import fs from "node:fs";
 
 let isInitialBuildCompleted = false;
 let isWithContentkitInitialized = false;
@@ -36,8 +35,6 @@ export function withContentkit(nextConfig: NextConfig) {
         process.cwd(),
         contentkitConfig.contentDirPath,
       );
-      const cacheDir = path.join(process.cwd(), ".contentkit", ".cache");
-      const cacheFile = path.join(cacheDir, "changed-files.json");
 
       const waitForNextJsReady = new Promise<void>((resolve) => {
         const originalWrite = process.stdout.write;
@@ -58,10 +55,6 @@ export function withContentkit(nextConfig: NextConfig) {
       await waitForNextJsReady;
 
       if (!isInitialBuildCompleted) {
-        if (!fs.existsSync(cacheDir)) {
-          fs.mkdirSync(cacheDir, { recursive: true });
-        }
-
         const now = Date.now();
         await build(contentkitConfig);
         logger.success(
@@ -72,46 +65,57 @@ export function withContentkit(nextConfig: NextConfig) {
         isInitialBuildCompleted = true;
       }
 
+      let isRebuildScheduled = false;
       const changedFiles = new Set<string>();
-      const debouncedRebuild = debounce(async () => {
-        if (changedFiles.size > 0 && !isBuildInProgress) {
-          isBuildInProgress = true;
+
+      const rebuild = async () => {
+        if (isBuildInProgress) {
+          isRebuildScheduled = true;
+          return;
+        }
+
+        isBuildInProgress = true;
+
+        try {
           const now = Date.now();
-          const filesToBuild = [...changedFiles];
           changedFiles.clear();
           await build(contentkitConfig);
           logger.success(
             `ContentKit build completed [${colors.gray}${formatTime(Date.now() - now)}${colors.reset}]`,
             "next",
           );
-          fs.writeFileSync(cacheFile, JSON.stringify(filesToBuild), "utf-8");
-
-          const cachedFiles = new Set(
-            JSON.parse(fs.readFileSync(cacheFile, "utf-8")),
-          );
-          filesToBuild.forEach((file) => cachedFiles.delete(file));
-          fs.writeFileSync(
-            cacheFile,
-            JSON.stringify([...cachedFiles]),
-            "utf-8",
-          );
-
+        } catch (error) {
+          logger.error("ContentKit build failed", "next");
+          console.error(error);
+        } finally {
           isBuildInProgress = false;
+          if (isRebuildScheduled) {
+            isRebuildScheduled = false;
+            debouncedRebuild();
+          }
         }
-      }, 300);
+      };
+
+      const debouncedRebuild = debounce(rebuild, 300);
+
+      const watchPatterns = contentkitConfig.documentTypes.map((dt) =>
+        path.join(contentDir, dt.filePathPattern),
+      );
 
       chokidar
-        .watch(`${contentDir}/**/*`, { ignoreInitial: true })
+        .watch(watchPatterns, {
+          ignoreInitial: true,
+          ignored: [
+            /(^|[\/\\])\../, // ignore dotfiles
+            "**/node_modules/**",
+            "**/.contentkit/**",
+            "**/.next/**",
+            "**/.git/**",
+          ],
+        })
         .on("all", (event, filePath) => {
           const relativePath = path.relative(contentDir, filePath);
-          const cachedFiles = fs.existsSync(cacheFile)
-            ? new Set(JSON.parse(fs.readFileSync(cacheFile, "utf-8")))
-            : new Set();
-
-          if (
-            !cachedFiles.has(relativePath) &&
-            !changedFiles.has(relativePath)
-          ) {
+          if (!changedFiles.has(relativePath)) {
             changedFiles.add(relativePath);
             debouncedRebuild();
           }

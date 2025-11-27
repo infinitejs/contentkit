@@ -82,5 +82,4 @@ jobs:
             IS_PRERELEASE=false
           fi
           TAG="v$VERSION"
-          DESCRIPTION="Automated release publish for ContentKit $TAG"
-          gh release create "$TAG" --title "$TAG" --notes "$DESCRIPTION" --prerelease=$IS_PRERELEASE
+          gh release create "$TAG" --title "$TAG" --notes-file CHANGELOG.md --prerelease=$IS_PRERELEASE

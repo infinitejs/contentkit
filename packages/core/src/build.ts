@@ -79,6 +79,13 @@ export async function build(config: ContentKitConfig) {
             for (const [fieldName, fieldType] of Object.entries(
               docType.fields,
             )) {
+              if (
+                data[fieldName] === undefined &&
+                fieldType.default !== undefined
+              ) {
+                data[fieldName] = fieldType.default;
+              }
+
               const value = data[fieldName];
               const isValid = validateFieldType(value, fieldType);
 

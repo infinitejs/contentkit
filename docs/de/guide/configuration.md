@@ -118,6 +118,15 @@ schema: {
 }
 ```
 
+Verkette `.default(value)` um einen Standardwert bereitzustellen, falls das Feld fehlt. Dies macht das Feld automatisch optional im Schema, stellt aber sicher, dass ein Wert in der Ausgabe vorhanden ist.
+
+```ts
+schema: {
+  published: fields.boolean().default(true),
+  tags: fields.array(fields.string()).default([]),
+}
+```
+
 ## Computed Fields
 
 Für abgeleitete Werte wie `slug`, `readingTime`, etc.

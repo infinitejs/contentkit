@@ -31,6 +31,7 @@ export function defineConfig(config: Config): Config {
 
 type FieldBuilder<T extends FieldType> = T & {
   optional: () => FieldBuilder<T>;
+  default: (value: any) => FieldBuilder<T>;
   resolve: (resolveFn: (doc: any) => any) => ComputedField;
 };
 
@@ -38,6 +39,11 @@ function createField<T extends FieldType>(field: T): FieldBuilder<T> {
   return {
     ...field,
     optional() {
+      this.required = false;
+      return this as FieldBuilder<T>;
+    },
+    default(value: any) {
+      this.default = value;
       this.required = false;
       return this as FieldBuilder<T>;
     },

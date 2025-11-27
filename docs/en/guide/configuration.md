@@ -118,6 +118,15 @@ schema: {
 }
 ```
 
+Chain `.default(value)` to provide a default value if the field is missing. This automatically makes the field optional in the schema but ensures a value is present in the output.
+
+```ts
+schema: {
+  published: fields.boolean().default(true),
+  tags: fields.array(fields.string()).default([]),
+}
+```
+
 ## Computed Fields
 
 Used for derived values like `slug`, `readingTime`, etc.
