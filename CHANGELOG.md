@@ -1,5 +1,3 @@
-# v1.1.0
-
 ## Features
 
 - **Default Values**: Added support for default values in schema definitions. You can now chain `.default(value)` to any field to provide a fallback value if the field is missing in the content source.
