@@ -81,7 +81,8 @@ export async function build(config: ContentKitConfig) {
             )) {
               if (
                 data[fieldName] === undefined &&
-                fieldType.default !== undefined
+                fieldType.default !== undefined &&
+                typeof fieldType.default !== "function"
               ) {
                 data[fieldName] = fieldType.default;
               }
