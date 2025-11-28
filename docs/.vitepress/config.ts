@@ -163,12 +163,16 @@ export default async function () {
               text: `v${latest_version}`,
               items: [
                 {
+                  text: "Änderungen",
+                  link: `https://github.com/infinitejs/contentkit/releases/tag/v${latest_version}`,
+                },
+                {
                   text: "Sicherheit",
-                  link: "https://github.com/infinitejs/contentkit/blob/master/SECURITY.md",
+                  link: `https://github.com/infinitejs/contentkit/tree/v${latest_version}/SECURITY.md`,
                 },
                 {
                   text: "Beitragsleitfaden",
-                  link: "https://github.com/infinitejs/contentkit/blob/master/CONTRIBUTING.md",
+                  link: `https://github.com/infinitejs/contentkit/tree/v${latest_version}/CONTRIBUTING.md`,
                 },
               ],
             },
