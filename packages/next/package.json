@@ -30,7 +30,7 @@
     "@ckjs/core": "workspace:*",
     "@ckjs/utils": "workspace:*",
     "chokidar": "^3.5.3",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "next": "^15.5.9"
   },
   "devDependencies": {
