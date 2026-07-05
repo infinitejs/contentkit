@@ -82,7 +82,7 @@ function log(
 
   if (mode === "next") {
     console.log(
-      `${" "}${color}${colors.bold}${nextEmojis[level]}${colors.reset} ${message}`,
+      `${color}${colors.bold}${nextEmojis[level]}${colors.reset} ${message}`,
     );
   }
 

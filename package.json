@@ -18,12 +18,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
-    "name": "Jonas Franke <@binary-blazer>",
-    "email": "me@binaryblazer.me",
-    "url": "https://binaryblazer.me"
+    "name": "ByJonas",
+    "email": "me@byjonas.dev",
+    "url": "https://www.byjonas.dev"
   },
   "license": "BSD-3-Clause",
-  "packageManager": "pnpm@10.8.0",
   "devDependencies": {
     "@types/node": "^24.7.0",
     "prettier": "^3.6.2",

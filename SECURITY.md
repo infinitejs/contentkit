@@ -14,7 +14,7 @@ We release patches for security vulnerabilities in the following versions:
 If you discover a security vulnerability, please follow these steps:
 
 1. **Do not disclose it publicly.**  
-   Instead, send an email to [me@binaryblazer.me](mailto:me@binaryblazer.me) with the details of the vulnerability.
+   Instead, send an email to [me@byjonas.dev](mailto:me@byjonas.dev) with the details of the vulnerability.
 
 2. **Provide sufficient details.**  
    Include steps to reproduce the issue, the affected version, and any relevant logs or screenshots.
