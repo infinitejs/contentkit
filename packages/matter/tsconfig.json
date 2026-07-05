@@ -6,8 +6,7 @@
     "composite": true,
     "declaration": true,
     "emitDeclarationOnly": false,
-    "tsBuildInfoFile": "./distribution/tsconfig.tsbuildinfo",
-    "ignoreDeprecations": "6.0"
+    "tsBuildInfoFile": "./distribution/tsconfig.tsbuildinfo"
   },
   "include": ["./src/**/*"]
 }
