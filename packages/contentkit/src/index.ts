@@ -1,6 +1,6 @@
 /**
  * Copyright (c) Jonas Franke and the ContentKit Contributors
- * SPDX-License-Identifier: BSD-3-Clause
+ * SPDX-License-Identifier: ICL
  */
 
 import type { FieldType, ComputedField } from "@ckjs/types";

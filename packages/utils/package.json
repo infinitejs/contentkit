@@ -26,7 +26,7 @@
     "README.md",
     "LICENSE"
   ],
-  "license": "BSD-3-Clause",
+  "license": "ICL",
   "exports": {
     "./load-config": "./distribution/load-config.js",
     "./load-config.d.ts": "./distribution/load-config.d.ts",

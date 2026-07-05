@@ -1,6 +1,6 @@
 /**
  * Copyright (c) Jonas Franke and the ContentKit Contributors
- * SPDX-License-Identifier: BSD-3-Clause
+ * SPDX-License-Identifier: ICL
  */
 
 import * as fs from "fs";
@@ -10,7 +10,7 @@ const __dirname = path.resolve(path.dirname(""));
 
 const COPYRIGHT_NOTICE = `/**
  * Copyright (c) Jonas Franke and the ContentKit Contributors
- * SPDX-License-Identifier: BSD-3-Clause
+ * SPDX-License-Identifier: ICL
  */
 
 `;

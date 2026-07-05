@@ -2,7 +2,7 @@
   "name": "@ckjs/types",
   "version": "1.2.0",
   "description": "Type definitions for ContentKit",
-  "license": "BSD-3-Clause",
+  "license": "ICL",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
   "publishConfig": {

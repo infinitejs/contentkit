@@ -35,7 +35,7 @@
     "README.md",
     "LICENSE"
   ],
-  "license": "BSD-3-Clause",
+  "license": "ICL",
   "exports": {
     "./build": "./distribution/build.js",
     "./build.d.ts": "./distribution/build.d.ts",

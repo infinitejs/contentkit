@@ -27,4 +27,4 @@ Visit the [ContentKit documentation](https://contentkit.js.org/guide/installatio
 
 ## License
 
-[BSD-3-Clause](./LICENSE)
+[ICL](./LICENSE)

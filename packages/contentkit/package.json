@@ -35,7 +35,7 @@
     "README.md",
     "LICENSE"
   ],
-  "license": "BSD-3-Clause",
+  "license": "ICL",
   "dependencies": {
     "@ckjs/cli": "workspace:*",
     "@ckjs/types": "workspace:*",

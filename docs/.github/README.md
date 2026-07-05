@@ -42,7 +42,7 @@ Please read [CONTRIBUTING.md](./CONTRIBUTING.md) in this folder. In short:
 
 All documentation content is licensed under the same license as the main project.
 
-> BSD-3-Clause
+> ICL
 
 ## Feedback
 

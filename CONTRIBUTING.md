@@ -69,7 +69,7 @@ If you encounter a bug or have a feature request, please open an issue on GitHub
 
 ## License
 
-By contributing to ContentKit, you agree that your contributions will be licensed under the [BSD-3-Clause License](./LICENSE).
+By contributing to ContentKit, you agree that your contributions will be licensed under the [ICL License](./LICENSE).
 
 ## Questions?
 

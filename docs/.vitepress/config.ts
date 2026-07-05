@@ -1,6 +1,6 @@
 /**
  * Copyright (c) Jonas Franke and the ContentKit Contributors
- * SPDX-License-Identifier: BSD-3-Clause
+ * SPDX-License-Identifier: ICL
  */
 
 import {
@@ -88,7 +88,7 @@ export default async function () {
         { icon: "github", link: "https://github.com/infinitejs/contentkit" },
       ],
       footer: {
-        message: "Released under the BSD-3-Clause License.",
+        message: "Released under the ICL License.",
         copyright: "Copyright © 2025-present ContentKit contributors",
       },
       search: { provider: "local" },
