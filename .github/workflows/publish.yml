@@ -7,17 +7,22 @@ on:
         description: "Publish mode (canary or stable)"
         required: true
         default: "stable"
+        type: choice
+        options:
+          - stable
+          - canary
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     permissions:
       id-token: write
       contents: read
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: "master"
 
@@ -25,20 +30,17 @@ jobs:
         uses: pnpm/action-setup@v4.1.0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          registry-url: "https://registry.npmjs.org"
           cache: "pnpm"
+
+      - name: Update npm
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: pnpm install
-
-      - name: Verify NPM_TOKEN
-        run: |
-          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
-            echo "NPM_TOKEN is not set. Please configure it in the repository secrets."
-            exit 1
-          fi
 
       - name: Verify versions
         run: pnpm scripts:uv
@@ -48,25 +50,24 @@ jobs:
 
       - name: Prepare packages
         run: |
-          if [ "${{ github.event.inputs.mode }}" == "canary" ]; then
+          if [ "${{ github.event.inputs.mode }}" = "canary" ]; then
             pnpm scripts:prepare --canary
           else
             pnpm scripts:prepare
           fi
 
       - name: Publish packages
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
           pnpm m ls --json --depth=-1 | jq -r '.[].path' | grep '/packages/' | while read -r package; do
             echo "Publishing package: $package"
             cd "$package"
-            if [ "${{ github.event.inputs.mode }}" == "canary" ]; then
-              npm publish --access public --tag canary --provenance --no-git-checks --userconfig ~/.npmrc
+
+            if [ "${{ github.event.inputs.mode }}" = "canary" ]; then
+              npm publish --access public --tag canary --provenance --no-git-checks
             else
-              npm publish --access public --provenance --no-git-checks --userconfig ~/.npmrc
+              npm publish --access public --provenance --no-git-checks
             fi
+
             cd -
           done
 
@@ -76,10 +77,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          if [ "${{ github.event.inputs.mode }}" == "canary" ]; then
+          TAG="v$VERSION"
+
+          if [ "${{ github.event.inputs.mode }}" = "canary" ]; then
             IS_PRERELEASE=true
           else
             IS_PRERELEASE=false
           fi
-          TAG="v$VERSION"
-          gh release create "$TAG" --title "$TAG" --notes-file CHANGELOG.md --prerelease=$IS_PRERELEASE
+
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes-file CHANGELOG.md \
+            --prerelease=$IS_PRERELEASE
